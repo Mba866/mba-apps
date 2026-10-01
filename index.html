@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MBA Apps</title>
+<!-- Подключаем библиотеку Telegram -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box}
 body{
@@ -23,6 +24,7 @@ main{padding:22px;max-width:650px;margin:auto}
 .search{
 width:100%;padding:17px;border:0;border-radius:15px;
 font-size:17px;background:white;margin-bottom:20px;
+outline: none;
 }
 h2{font-size:23px}
 .apps{display:grid;gap:13px}
@@ -40,8 +42,34 @@ background:#edf0ff}
 button{
 border:0;border-radius:12px;padding:11px 15px;
 background:#6c4de8;color:white;font-size:14px;
+cursor:pointer;
 }
 footer{text-align:center;color:#999;padding:30px;font-size:13px}
+
+/* Стили для нового всплывающего окна (модалки) */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 100;
+    align-items: flex-end;
+}
+.modal-content {
+    background: white; width: 100%; max-width: 650px; margin: 0 auto;
+    border-radius: 28px 28px 0 0; padding: 30px 22px 40px;
+    position: relative;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+}
+.modal-close {
+    position: absolute; top: 20px; right: 22px;
+    background: #edf0ff; border: none; width: 32px; height: 32px;
+    border-radius: 16px; font-size: 18px; font-weight: bold;
+    color: #6548e8; cursor: pointer; display: grid; place-items: center;
+}
+.modal-title { font-size: 24px; margin: 0 0 15px 0; }
+.modal-text { font-size: 16px; line-height: 1.5; color: #444; }
+.modal-btn {
+    display: block; width: 100%; margin-top: 25px; padding: 15px;
+    font-size: 16px; font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -82,15 +110,47 @@ footer{text-align:center;color:#999;padding:30px;font-size:13px}
 </div>
 </main>
 <footer>MBA Apps © 2026</footer>
+
+<!-- Скрытое всплывающее окно -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2 class="modal-title" id="modal-title">Название</h2>
+        <div class="modal-text" id="modal-desc">Здесь будет инструкция</div>
+        <button class="modal-btn" onclick="closeModal()">Понятно</button>
+    </div>
+</div>
+
 <script>
+// Инициализация Telegram WebApp
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+// Логика поиска
 document.getElementById('search').addEventListener('input',function(){
 let q=this.value.toLowerCase();
 document.querySelectorAll('.app').forEach(el=>{
 el.style.display=el.innerText.toLowerCase().includes(q)?'flex':'none';
 });
 });
+
+// Открытие красивого окна вместо alert
 function showInfo(name){
-alert(name+'\n\nИнструкция по установке скоро появится.');
+    tg.HapticFeedback.impactOccurred('light'); 
+    
+    document.getElementById('modal-title').innerText = name;
+    
+    document.getElementById('modal-desc').innerHTML = 
+        `Для установки <b>${name}</b> на ваш iPhone в обход App Store потребуется компьютер.<br><br>
+        В следующих обновлениях мы добавим сюда пошаговую инструкцию с использованием <b>iMazing</b> или <b>3uTools</b>, а также прикрепим нужный установочный файл.`;
+    
+    document.getElementById('modal').style.display = 'flex';
+}
+
+// Закрытие окна
+function closeModal() {
+    tg.HapticFeedback.impactOccurred('light');
+    document.getElementById('modal').style.display = 'none';
 }
 </script>
 </body>
