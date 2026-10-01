@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBA Apps</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+background:#f5f6f8;color:#17191d;
+}
+header{
+background:linear-gradient(135deg,#6548e8,#a34de9);
+color:white;padding:45px 22px 35px;
+border-radius:0 0 28px 28px;
+}
+header h1{font-size:36px;margin:0 0 10px}
+header p{font-size:16px;line-height:1.5;margin:0}
+main{padding:22px;max-width:650px;margin:auto}
+.search{
+width:100%;padding:17px;border:0;border-radius:15px;
+font-size:17px;background:white;margin-bottom:20px;
+}
+h2{font-size:23px}
+.apps{display:grid;gap:13px}
+.app{
+background:white;border-radius:18px;padding:17px;
+display:flex;align-items:center;gap:15px;
+box-shadow:0 3px 14px #00000008;
+}
+.logo{width:55px;height:55px;border-radius:14px;
+display:grid;place-items:center;font-size:25px;
+background:#edf0ff}
+.info{flex:1}
+.info h3{margin:0 0 5px;font-size:19px}
+.info p{margin:0;color:#858991;font-size:14px}
+button{
+border:0;border-radius:12px;padding:11px 15px;
+background:#6c4de8;color:white;font-size:14px;
+}
+footer{text-align:center;color:#999;padding:30px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>MBA Apps 📱</h1>
+<p>Каталог мобильных приложений для iPhone.<br>
+Находите нужные приложения и инструкции по установке.</p>
+</header>
+<main>
+<input class="search" id="search" placeholder="🔍 Найти приложение...">
+<h2>Популярные приложения</h2>
+<div class="apps" id="apps">
+<div class="app">
+<div class="logo">🟢</div>
+<div class="info"><h3>Сбербанк</h3><p>Банки · Финансы</p></div>
+<button onclick="showInfo('Сбербанк')">Подробнее</button>
+</div>
+<div class="app">
+<div class="logo">💳</div>
+<div class="info"><h3>Т-Банк</h3><p>Банки · Финансы</p></div>
+<button onclick="showInfo('Т-Банк')">Подробнее</button>
+</div>
+<div class="app">
+<div class="logo">💬</div>
+<div class="info"><h3>MAX</h3><p>Общение · Мессенджеры</p></div>
+<button onclick="showInfo('MAX')">Подробнее</button>
+</div>
+<div class="app">
+<div class="logo">🔵</div>
+<div class="info"><h3>ВКонтакте</h3><p>Общение · Социальные сети</p></div>
+<button onclick="showInfo('ВКонтакте')">Подробнее</button>
+</div>
+<div class="app">
+<div class="logo">🟣</div>
+<div class="info"><h3>ChatGPT</h3><p>AI · Искусственный интеллект</p></div>
+<button onclick="showInfo('ChatGPT')">Подробнее</button>
+</div>
+</div>
+</main>
+<footer>MBA Apps © 2026</footer>
+<script>
+document.getElementById('search').addEventListener('input',function(){
+let q=this.value.toLowerCase();
+document.querySelectorAll('.app').forEach(el=>{
+el.style.display=el.innerText.toLowerCase().includes(q)?'flex':'none';
+});
+});
+function showInfo(name){
+alert(name+'\n\nИнструкция по установке скоро появится.');
+}
+</script>
+</body>
+</html>
